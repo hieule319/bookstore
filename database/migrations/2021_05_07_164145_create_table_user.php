@@ -19,9 +19,9 @@ class CreateTableUser extends Migration
             $table->string('email')->unique();
             $table->timestamp('email_verified_at')->nullable();
             $table->string('password')->nullable();
-            $table->dropColumn('google_id');
-            $table->dropColumn('avatar');
-            $table->dropColumn('avatar_original');
+            $table->string('google_id')->nullable();
+            $table->string('avatar')->nullable();
+            $table->string('avatar_original')->nullable();
             $table->tinyInteger('permission')->default(0)->comment('0: admin , 1: nhân viên, 2: khách hàng');
             $table->tinyInteger('invalid')->default(0);
             $table->rememberToken();

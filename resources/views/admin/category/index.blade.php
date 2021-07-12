@@ -3,7 +3,7 @@
 <!-- DataTales Example -->
 <div class="card shadow mb-4">
     <div class="card-header py-3">
-        <h6 class="m-0 font-weight-bold text-primary">Thể loại </h6>
+        <h6 class="m-0 font-weight-bold text-primary">Danh mục sản phẩm</h6>
         <a href="#" class="btn btn-success" style="float: right;" data-toggle="modal" data-target="#categoryModal">Thêm danh mục</a>
     </div>
     <div class="result">
@@ -51,20 +51,19 @@
                         <td>{{ $stt }}</td>
                         <td>{{ $category->category_name }}</td>
                         <td>
-                            <?php 
-                                 if($category->status == 0)
-                                 {
-                                    $status = 1;
-                            ?>
-                                   <a href="{{URL::to('category-status/'.$category->id.'/'.$status)}}"><i class="fas fa-thumbs-up" style="font-size:20px; color:darkgreen"></i></a>
                             <?php
-                                 }else{
-                                    $status = 0;
+                            if ($category->status == 0) {
+                                $status = 1;
+                            ?>
+                                <a href="{{URL::to('category-status/'.$category->id.'/'.$status)}}"><i class="fas fa-thumbs-up" style="font-size:20px; color:darkgreen"></i></a>
+                            <?php
+                            } else {
+                                $status = 0;
 
                             ?>
-                                    <a href="{{URL::to('category-status/'.$category->id.'/'.$status)}}"><i class="fas fa-thumbs-down" style="font-size:20px; color:red"></i></a>
+                                <a href="{{URL::to('category-status/'.$category->id.'/'.$status)}}"><i class="fas fa-thumbs-down" style="font-size:20px; color:red"></i></a>
                             <?php } ?>
-                        
+
                         </td>
                         <td>{{ $category->created_at }}</td>
                         <td>{{ $category->updated_at }}</td>
@@ -87,7 +86,7 @@
 
 <!-- Add Modal -->
 <div class="modal fade" id="categoryModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-    <div class="modal-dialog">
+    <div class="modal-dialog modal-custom1">
         <div class="modal-content">
             <div class="modal-header">
                 <h5 class="modal-title" id="exampleModalLabel">Thêm mới danh mục</h5>
@@ -100,7 +99,14 @@
                     @csrf
                     <div class="form-group">
                         <label for="categoryname">Tên danh mục</label>
-                        <input type="text" class="form-control" id="category_name" name="category_name" />
+                        <input type="text" class="form-control" name="category_name" onkeyup="ChangeToSlug();" id="slug"/>
+                        @if($errors->has('category_name'))
+                        <span class="text-danger">{{$errors->first('category_name')}}</span>
+                        @endif
+                    </div>
+                    <div class="form-group">
+                        <strong><label for="slug">Slug</label></strong>
+                        <input type="text" class="form-control" id="convert_slug" name="slug" placeholder="">
                     </div>
                     <button type="submit" class="btn btn-primary">Thêm mới</button>
                 </form>
@@ -114,7 +120,7 @@
 
 <!-- Edit Modal -->
 <div class="modal fade" id="categoryEditModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-    <div class="modal-dialog">
+    <div class="modal-dialog modal-custom1">
         <div class="modal-content">
             <div class="modal-header">
                 <h5 class="modal-title" id="exampleModalLabel">Chỉnh sửa danh mục</h5>
@@ -128,7 +134,14 @@
                     <input type="hidden" id="id" name="id" />
                     <div class="form-group">
                         <label for="categoryname">Tên danh mục</label>
-                        <input type="text" class="form-control" id="category_name_edit" name="category_name_edit" />
+                        <input type="text" class="form-control category_name" name="category_name" onkeyup="ChangeToSlug1();" id="slug1" />
+                        @if($errors->has('category_name'))
+                        <span class="text-danger">{{$errors->first('category_name')}}</span>
+                        @endif
+                    </div>
+                    <div class="form-group">
+                        <strong><label for="slug">Slug</label></strong>
+                        <input type="text" class="form-control slug" id="convert_slug1" name="slug" placeholder="">
                     </div>
                     <button type="submit" class="btn btn-primary">Chỉnh sửa</button>
                 </form>
@@ -145,7 +158,8 @@
     function editCategory(id) {
         $.get("category-show/" + id, function(category) {
             $("#id").val(category.id);
-            $("#category_name_edit").val(category.category_name);
+            $(".category_name").val(category.category_name);
+            $(".slug").val(category.slug);
             $("#categoryEditModal").modal("toggle");
         });
     }

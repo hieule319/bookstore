@@ -25,7 +25,13 @@ class User extends Authenticatable
         'permission',
         'google_id',
         'avatar',
-        'avatar_original'
+        'avatar_original',
+        'provider',
+        'provider_id',
+        'fullname',
+        'country',
+        'birthday',
+        'phone'
     ];
 
     /**
@@ -49,6 +55,13 @@ class User extends Authenticatable
 
     public static function insertOrUpdateUser($data)
     {
+        if(isset($data['id']))
+        {
+            return self::where([
+                'id' => $data['id'],
+                'invalid' => 0
+            ])->update($data);
+        }
         return self::create($data);
     }
     
@@ -76,4 +89,30 @@ class User extends Authenticatable
         }
     }
 
+    public static function getProFileById($id)
+    {
+        return self::where(['id' => $id, 'invalid' => 0])->get();
+    }
+    public static function getEmailById($id)
+    {
+        return self::where(['id' => $id, 'invalid' => 0])->first();
+    }
+
+    public static function getListUserStaff()
+    {
+        return self::where(['permission' => 1, 'invalid' => 0])->get();
+    }
+
+    public static function deleteUser($id)
+    {
+        return self::where([
+            'id' => $id,
+            'invalid' => 0
+        ])->update(['invalid' => 1]);
+    }
+
+    public static function getListUserCustomer()
+    {
+        return self::where(['permission' => 2, 'invalid' => 0])->get();
+    }
 }

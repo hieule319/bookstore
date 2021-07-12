@@ -10,7 +10,7 @@
     <meta name="author" content="">
 
     <title>Login</title>
-
+    <link rel="shortcut icon" type="image/x-icon" href="{{ asset('public/user/assets/images/favicon.ico') }}">
     <!-- Custom fonts for this template-->
     <link href="{{ asset('public/admin/vendor/fontawesome-free/css/all.min.css') }}" rel="stylesheet" type="text/css">
     <link href="https://fonts.googleapis.com/css?family=Nunito:200,200i,300,300i,400,400i,600,600i,700,700i,800,800i,900,900i" rel="stylesheet">
@@ -37,7 +37,7 @@
                             <div class="col-lg-6">
                                 <div class="p-5">
                                     <div class="text-center">
-                                        <h1 class="h4 text-gray-900 mb-4">Welcome Back!</h1>
+                                        <h1 class="h4 text-gray-900 mb-4">Chào mừng quay trở lại!</h1>
                                     </div>
                                     <form class="user" action="{{ route('auth.check') }}" method="post">
                                         @csrf
@@ -58,7 +58,7 @@
                                             @endif
                                         </div>
                                         <div class="form-group">
-                                            <input type="text" class="form-control form-control-user" aria-describedby="emailHelp" name="username" placeholder="Enter User Name Address..." value="{{ old('username') }}">
+                                            <input type="text" class="form-control form-control-user" aria-describedby="emailHelp" name="username" placeholder="Nhập username" value="{{ old('username') }}">
                                             <span class="text-danger">@error('username'){{ $message }} @enderror</span>
                                         </div>
                                         <div class="form-group">
@@ -68,8 +68,8 @@
                                         <div class="form-group">
                                             <div class="custom-control custom-checkbox small">
                                                 <input type="checkbox" class="custom-control-input" id="customCheck">
-                                                <label class="custom-control-label" for="customCheck">Remember
-                                                    Me</label>
+                                                <!--<label class="custom-control-label" for="customCheck">Remember-->
+                                                <!--    Me</label>-->
                                             </div>
                                         </div>
                                         <!-- <a href="index.html" class="btn btn-primary btn-user btn-block">
@@ -77,19 +77,19 @@
                                         </a> -->
                                         <button type="submit" class="btn btn-primary btn-user btn-block">Login</button>
                                         <hr>
-                                        <a href="redirect" class="btn btn-google btn-user btn-block">
+                                        <a href="{{ route('login.redirect',['google']) }}" class="btn btn-google btn-user btn-block">
                                             <i class="fab fa-google fa-fw"></i> Login with Google
                                         </a>
-                                        <a href="index.html" class="btn btn-facebook btn-user btn-block">
+                                        <a href="{{ route('login.redirect',['facebook']) }}" class="btn btn-facebook btn-user btn-block">
                                             <i class="fab fa-facebook-f fa-fw"></i> Login with Facebook
                                         </a>
                                     </form>
                                     <hr>
                                     <div class="text-center">
-                                        <a class="small" href="forgot-password.html">Forgot Password?</a>
+                                        <a class="small" href="forgot-password.html">Quên mật khẩu?</a>
                                     </div>
                                     <div class="text-center">
-                                        <a class="small" href="register">Create an Account!</a>
+                                        <a class="small" href="register">Đăng kí!</a>
                                     </div>
                                 </div>
                             </div>

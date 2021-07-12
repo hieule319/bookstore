@@ -10,7 +10,7 @@
     <meta name="author" content="">
 
     <title>Register</title>
-
+    <link rel="shortcut icon" type="image/x-icon" href="{{ asset('public/user/assets/images/favicon.ico') }}">
     <!-- Custom fonts for this template-->
     <link href="{{ asset('public/admin/vendor/fontawesome-free/css/all.min.css') }}" rel="stylesheet" type="text/css">
     <link
@@ -34,7 +34,7 @@
                     <div class="col-lg-7">
                         <div class="p-5">
                             <div class="text-center">
-                                <h1 class="h4 text-gray-900 mb-4">Create an Account!</h1>
+                                <h1 class="h4 text-gray-900 mb-4">Tạo tài khoản!</h1>
                             </div>
                             <form class="user" action="{{ route('auth.create') }}" method="POST">
                                 @csrf

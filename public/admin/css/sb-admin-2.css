@@ -558,11 +558,11 @@ pre code {
   margin-left: auto;
 }
 
-@media (min-width: 576px) {
+/* @media (min-width: 576px) {
   .container, .container-sm {
     max-width: 540px;
   }
-}
+} */
 
 @media (min-width: 768px) {
   .container, .container-sm, .container-md {
@@ -5664,7 +5664,15 @@ a.close.disabled {
   margin: 0.5rem;
   pointer-events: none;
 }
-
+.modal-custom {
+  width: 95% !important;
+}
+.modal-custom1 {
+  width: 50% !important;
+}
+.modal-custom2 {
+  width: 20% !important;
+}
 .modal.fade .modal-dialog {
   transition: transform 0.3s ease-out;
   transform: translate(0, -50px);
@@ -5814,7 +5822,7 @@ a.close.disabled {
 
 @media (min-width: 576px) {
   .modal-dialog {
-    max-width: 500px;
+    /* max-width: 500px; */
     margin: 1.75rem auto;
   }
   .modal-dialog-scrollable {

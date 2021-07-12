@@ -36,7 +36,13 @@ class CategoryController extends Controller
      */
     public function store(Request $request)
     {
-        $params = $request->all();
+        $this->validate($request,[
+            'category_name' => 'required|unique:category',
+        ],[
+            'category_name.required' => 'Tên không được trống',
+            'category_name.unique' => 'Đã tồn tại',
+        ]);
+        $params = $request->except('_token');
         $query = category::insertOrUpdateCategory($params);
         if ($query == 'success') {
             return back()->with('success', 'Thêm danh mục thành công');
@@ -100,8 +106,14 @@ class CategoryController extends Controller
 
     public function updateCategory(Request $request)
     {
-        $param['category_name'] = $request->category_name_edit;
-        $query = category::insertOrUpdateCategory($param,$request->id);
+        $this->validate($request,[
+            'category_name' => 'required|unique:category',
+        ],[
+            'category_name.required' => 'Tên không được trống',
+            'category_name.unique' => 'Đã tồn tại',
+        ]);
+        $params = $request->except('_token');
+        $query = category::insertOrUpdateCategory($params,$request->id);
 
         if ($query == 'success') {
             return back()->with('success', 'Chỉnh sửa danh mục thành công');
